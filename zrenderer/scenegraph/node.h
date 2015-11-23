@@ -6,6 +6,9 @@
 namespace zrenderer
 {
 
+/**
+ * Node class is the base class for scenegraph nodes.
+ */
 class Node
 {
 
