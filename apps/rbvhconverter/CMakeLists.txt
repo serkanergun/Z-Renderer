@@ -1,5 +1,4 @@
-# Copyright (c) ZombieRendering 2015-2016 ahmetbilgili@gmail.com
-#                                         serkan.ergun@gmail.com
+# Copyright (c) ZombieRendering 2015-2016 serkan.ergun@gmail.com
 
 add_definitions(-DBOOST_PROGRAM_OPTIONS_DYN_LINK) # Fix for windows and shared boost.
 set(RBVHCONVERTER_HEADERS)

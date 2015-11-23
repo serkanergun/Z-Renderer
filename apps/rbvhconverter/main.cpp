@@ -1,5 +1,4 @@
-/* Copyright(c) ZombieRendering 2015 - 2016 ahmetbilgili@gmail.com
- *                                         serkan.ergun@gmail.com
+/* Copyright(c) ZombieRendering 2015 - 2016 serkan.ergun@gmail.com
  *
  * This file is part of Z-Renderer(https://github.com/ZombieRendering/Z-Renderer)
  *
@@ -35,38 +34,38 @@
 
 namespace po = boost::program_options;
 
-int main(int argc, char *argv[])
+int main( int argc, char *argv[] )
 {
-	// Arguments parsing
-	po::variables_map vm;
-	po::options_description desc("Supported options");
-	desc.add_options()
-		("help,h", "show help message.")
-		("version,v", "Show program name/version banner and exit.")
-		("rev", "Print the git revision number");
-	po::store(parse_command_line(argc, argv, desc), vm);
-	po::notify(vm);
+    // Arguments parsing
+    po::variables_map vm;
+    po::options_description desc( "Supported options" );
+    desc.add_options()
+        ("help,h", "show help message.")
+        ("version,v", "Show program name/version banner and exit.")
+        ("rev", "Print the git revision number");
+    po::store( parse_command_line( argc, argv, desc ), vm );
+    po::notify( vm );
 
-	if (vm.count("help"))
-	{
-		std::cout << desc << std::endl;
-		return EXIT_SUCCESS;
-	}
+    if( vm.count( "help" ) )
+    {
+        std::cout << desc << std::endl;
+        return EXIT_SUCCESS;
+    }
 
-	if (vm.count("version"))
-	{
-		std::cout << "RBVHConverter version " << zrenderer::Version::getString()
-			<< std::endl
-			<< "Copyright (c) ZombieRendering 2014." << std::endl;
-		return EXIT_SUCCESS;
-	}
+    if( vm.count( "version" ) )
+    {
+        std::cout << "RBVHConverter version " << zrenderer::Version::getString()
+            << std::endl
+            << "Copyright (c) ZombieRendering 2015." << std::endl;
+        return EXIT_SUCCESS;
+    }
 
-	if (vm.count("rev"))
-	{
-		std::cout << "git revision: " << std::hex
-			<< zrenderer::Version::getRevision() << std::endl;
-		return EXIT_SUCCESS;
-	}
+    if( vm.count( "rev" ) )
+    {
+        std::cout << "git revision: " << std::hex
+            << zrenderer::Version::getRevision() << std::endl;
+        return EXIT_SUCCESS;
+    }
 
-	return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
