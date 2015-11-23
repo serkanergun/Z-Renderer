@@ -21,6 +21,8 @@ include(Common)
 common_package(Boost REQUIRED COMPONENTS unit_test_framework program_options)
 common_package_post()
 
+add_subdirectory(rbvh)
+add_subdirectory(apps)
 add_subdirectory(tests)
 
 include(CPackConfig)
