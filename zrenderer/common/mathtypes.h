@@ -17,28 +17,32 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _scenegraph_types_
-#define _scenegraph_types_
+#ifndef _mathtypes_h_
+#define _mathtypes_h_
 
-#include <zrenderer/common/types.h>
+#include <types.h>
+#include <eigen3/Eigen/Core>
 
 namespace zrenderer
 {
 
-class GeometryNode;
-class Node;
-class NodeData;
-class SceneGraph;
+using Eigen::Vector2i;
+using Eigen::Vector3i;
+using Eigen::Vector4i;
 
-typedef std::shared_ptr<Node> NodePtr;
-typedef std::shared_ptr<const Node> ConstNodePtr;
-typedef std::shared_ptr<NodeData> NodeDataPtr;
-typedef std::shared_ptr<const NodeData> ConstNodeDataPtr;
-typedef std::shared_ptr<GeometryNode> GeometryNode;
+typedef Eigen::Matrix<uint32_t, 2, 1> Vector2ui;
+typedef Eigen::Matrix<uint32_t, 3, 1> Vector3ui;
+typedef Eigen::Matrix<uint32_t, 4, 1> Vector4ui;
 
-typedef std::vector<NodePtr> NodePtrs;
-typedef std::vector<ConstNodePtr> ConstNodePtrs;
+using Eigen::Vector2f;
+using Eigen::Vector3f;
+using Eigen::Vector4f;
+
+using Eigen::Vector2d;
+using Eigen::Vector3d;
+using Eigen::Vector4d;
 
 }
 
-#endif // _scenegraph_types_
+#endif // _mathtypes_h_
+

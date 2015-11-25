@@ -17,28 +17,26 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _scenegraph_types_
-#define _scenegraph_types_
+#ifndef _node_h_
+#define _node_h_
 
-#include <zrenderer/common/types.h>
+#include <zrenderer/scenegraph/types.h>
 
 namespace zrenderer
 {
 
-class GeometryNode;
-class Node;
-class NodeData;
-class SceneGraph;
+/**
+ * Node class is the base class for scenegraph nodes.
+ */
+class NodeData
+{
+    virtual bool satisfiesFilter( const Filter& filter ) = 0;
 
-typedef std::shared_ptr<Node> NodePtr;
-typedef std::shared_ptr<const Node> ConstNodePtr;
-typedef std::shared_ptr<NodeData> NodeDataPtr;
-typedef std::shared_ptr<const NodeData> ConstNodeDataPtr;
-typedef std::shared_ptr<GeometryNode> GeometryNode;
+protected:
+    virtual ~NodeData() {}
 
-typedef std::vector<NodePtr> NodePtrs;
-typedef std::vector<ConstNodePtr> ConstNodePtrs;
+};
 
 }
 
-#endif // _scenegraph_types_
+#endif // _node_h_
