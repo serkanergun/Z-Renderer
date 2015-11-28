@@ -23,13 +23,21 @@
 #include <memory>
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include <set>
 #include <algorithm>
 #include <cstdint>
 
+#include <boost/thread/locks.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/shared_mutex.hpp>
+
 namespace zrenderer
 {
 
+/**
+ * Basic types
+ */
 using std::int8_t;
 using std::int16_t;
 using std::int32_t;
@@ -40,9 +48,24 @@ using std::uint16_t;
 using std::uint32_t;
 using std::uint64_t;
 
+/**
+ * Class definitions
+ */
 class Mesh;
 
+/**
+ * SmartPtr definition
+ */
 typedef std::shared_ptr<Mesh> MeshPtr;
+
+/**
+ * Locking object definitions
+ */
+typedef boost::shared_mutex ReadWriteMutex;
+typedef boost::shared_lock< ReadWriteMutex > ReadLock;
+typedef boost::unique_lock< ReadWriteMutex > WriteLock;
+typedef boost::unique_lock< boost::mutex > ScopedLock;
+
 
 }
 

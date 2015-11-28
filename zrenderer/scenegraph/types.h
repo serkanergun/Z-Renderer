@@ -1,7 +1,7 @@
 /* Copyright (c) 2015, Zombie Rendering
  *                     ahmetbilgili@gmail.com
  *
- * This file is part of Livre <https://github.com/BlueBrain/Livre>
+ * This file is part of Z-Renderer <https://github.com/ZombieRendering/Z-Renderer>
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License version 3.0 as published
@@ -38,6 +38,8 @@ typedef std::shared_ptr<GeometryNode> GeometryNode;
 
 typedef std::vector<NodePtr> NodePtrs;
 typedef std::vector<ConstNodePtr> ConstNodePtrs;
+
+const std::string ROOT_NODE = "RootNode";
 
 }
 
