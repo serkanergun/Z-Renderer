@@ -18,7 +18,7 @@ struct RBVHNode::Impl
     Impl( ConstMeshPtr mesh )
     {
         const Vector3fs& vertices = mesh->getVertices();
-        const Vector3uis& indices = mesh->getIndices();
+        const Vector3uis& faces = mesh->getFaces();
 
         RBVHNodePtrs stack;
     }

@@ -29,16 +29,6 @@ struct Mesh::Impl
 
     ~Impl() {}
 
-    const Vector3fs& getVertices() const
-    {
-        return _vertices;
-    }
-
-    const Vector3uis& getIndices() const
-    {
-        return _faces;
-    }
-
     Vector3fs _vertices;
     Vector3uis _faces;
 };
@@ -51,12 +41,12 @@ Mesh::~Mesh() {}
 
 const Vector3fs& Mesh::getVertices() const
 {
-    return _impl->getVertices();
+    return _impl->_vertices;
 }
 
-const Vector3uis& Mesh::getIndices() const
+const Vector3uis& Mesh::getFaces() const
 {
-    return _impl->getIndices();
+    return _impl->_faces;
 }
 
 }

@@ -1,7 +1,5 @@
 # Copyright (c) ZombieRendering 2015-2016 serkan.ergun@gmail.com
 
-include_directories(${Eigen3_INCLUDE_DIR})
-
 set(RBVH_PUBLIC_HEADERS)
 
 set(RBVH_HEADERS 

@@ -1,7 +1,5 @@
 # Copyright (c) ZombieRendering 2015-2016 serkan.ergun@gmail.com
 
-include_directories(${Eigen3_INCLUDE_DIR})
-
 set(COMMON_PUBLIC_HEADERS
   mathtypes.h
   mesh.h

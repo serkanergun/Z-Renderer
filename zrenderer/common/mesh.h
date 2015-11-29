@@ -16,7 +16,7 @@ public:
     ZCOMMON_API virtual ~Mesh();
 	
     ZCOMMON_API const Vector3fs& getVertices() const;
-    ZCOMMON_API const Vector3uis& getIndices() const;
+    ZCOMMON_API const Vector3uis& getFaces() const;
 
 private:
 

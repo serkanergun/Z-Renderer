@@ -20,7 +20,7 @@
 #ifndef _mathtypes_h_
 #define _mathtypes_h_
 
-#include "types.h"
+#include <zrenderer/common/types.h>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 namespace zrenderer

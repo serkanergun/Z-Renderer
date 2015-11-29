@@ -25,10 +25,6 @@ public:
 
     ZRBVH_API virtual ~RBVHNode();
 
-    friend std::ostream& operator<<( std::ostream& output, const RBVHNode& node );
-
-    friend std::istream& operator>>( std::istream& input, RBVHNode& node );
-
     ZRBVH_API bool isLeaf() const;
 
     ZRBVH_API const RBVHNodePtr getLeftChild() const;
