@@ -17,36 +17,32 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <zrenderer/scenegraph/types.h>
+#ifndef _mathtypes_h_
+#define _mathtypes_h_
+
+#include <types.h>
+#include <eigen3/Eigen/Core>
 
 namespace zrenderer
 {
 
-class SceneGraph
-{
-public:
+using Eigen::Vector2i;
+using Eigen::Vector3i;
+using Eigen::Vector4i;
 
-    SceneGraph();
-    ~SceneGraph();
+typedef Eigen::Matrix<uint32_t, 2, 1> Vector2ui;
+typedef Eigen::Matrix<uint32_t, 3, 1> Vector3ui;
+typedef Eigen::Matrix<uint32_t, 4, 1> Vector4ui;
 
-    ConstNodePtr getRoot() const;
-    NodePtr getRoot();
+using Eigen::Vector2f;
+using Eigen::Vector3f;
+using Eigen::Vector4f;
 
-    NodePtr createNode( const std::string& name,
-                        NodeDataPtr nodeData );
-
-    NodePtr findNode( const std::string& name ) const;
-
-    bool removeNode( const std::string& nodeName );
-
-    bool addChild( const std::string& parent,
-                   const std::string& child );
-
-private:
-
-    struct Impl;
-    std::unique_ptr<Impl> _impl;
-};
+using Eigen::Vector2d;
+using Eigen::Vector3d;
+using Eigen::Vector4d;
 
 }
+
+#endif // _mathtypes_h_
 
