@@ -27,8 +27,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <rbvh/rbvhnode.h>
-#include <zrenderer/version.h>
+#include <zrenderer/geometry/rbvh/rbvhnode.h>
+#include <zrenderer/geometry/rbvh/version.h>
 #include <boost/program_options.hpp>
 #include <iostream>
 
@@ -54,7 +54,7 @@ int main( int argc, char *argv[] )
 
     if( vm.count( "version" ) )
     {
-        std::cout << "RBVHConverter version " << zrenderer::Version::getString()
+        std::cout << "RBVHConverter version " << ZRBVH::Version::getString()
             << std::endl
             << "Copyright (c) ZombieRendering 2015." << std::endl;
         return EXIT_SUCCESS;
@@ -63,7 +63,7 @@ int main( int argc, char *argv[] )
     if( vm.count( "rev" ) )
     {
         std::cout << "git revision: " << std::hex
-            << zrenderer::Version::getRevision() << std::endl;
+            << ZRBVH::Version::getRevision() << std::endl;
         return EXIT_SUCCESS;
     }
 

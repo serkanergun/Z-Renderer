@@ -57,6 +57,7 @@ class Mesh;
  * SmartPtr definition
  */
 typedef std::shared_ptr<Mesh> MeshPtr;
+typedef std::shared_ptr<const Mesh> ConstMeshPtr;
 
 /**
  * Locking object definitions

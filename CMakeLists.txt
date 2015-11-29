@@ -20,13 +20,15 @@ set(ZRENDERER_LICENSE LGPL )
 include(Common)
 common_package(Boost REQUIRED COMPONENTS unit_test_framework
                                          program_options
+										 system
                                          thread
                                          graph)
 common_package(FreeImage REQUIRED)
 common_package(Eigen3 REQUIRED)
+common_package(AssImp REQUIRED)
 common_package_post()
 
-add_subdirectory(rbvh)
+add_subdirectory(zrenderer)
 add_subdirectory(apps)
 add_subdirectory(tests)
 

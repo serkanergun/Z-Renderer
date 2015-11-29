@@ -20,9 +20,9 @@
 #ifndef _mathtypes_h_
 #define _mathtypes_h_
 
-#include <types.h>
-#include <eigen3/Eigen/Core>
-
+#include "types.h"
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 namespace zrenderer
 {
 
@@ -41,6 +41,11 @@ using Eigen::Vector4f;
 using Eigen::Vector2d;
 using Eigen::Vector3d;
 using Eigen::Vector4d;
+
+using Eigen::AlignedBox3f;
+
+typedef std::vector<Vector3f> Vector3fs;
+typedef std::vector<Vector3ui> Vector3uis;
 
 }
 
