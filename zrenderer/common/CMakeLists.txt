@@ -12,7 +12,7 @@ set(COMMON_SOURCES
   mesh.cpp)
 
 set(COMMON_LINK_LIBRARIES
-  PUBLIC ${Boost_SYSTEM_LIBRARY})
+  PUBLIC ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} AssImp)
 
 set(COMMON_INCLUDE_NAME zrenderer/common)
 set(COMMON_NAMESPACE zcommon)

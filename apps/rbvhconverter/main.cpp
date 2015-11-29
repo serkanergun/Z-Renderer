@@ -29,10 +29,12 @@
 
 #include <zrenderer/geometry/rbvh/rbvhnode.h>
 #include <zrenderer/geometry/rbvh/version.h>
+#include <zrenderer/common/mesh.h>
 #include <boost/program_options.hpp>
 #include <iostream>
 
 namespace po = boost::program_options;
+namespace fs = boost::filesystem;
 
 int main( int argc, char *argv[] )
 {
@@ -42,7 +44,9 @@ int main( int argc, char *argv[] )
     desc.add_options()
         ("help,h", "show help message.")
         ("version,v", "Show program name/version banner and exit.")
-        ("rev", "Print the git revision number");
+        ("rev", "Print the git revision number")
+        ("input,i", po::value<fs::path>(), "Input file");
+
     po::store( parse_command_line( argc, argv, desc ), vm );
     po::notify( vm );
 
@@ -65,6 +69,16 @@ int main( int argc, char *argv[] )
         std::cout << "git revision: " << std::hex
             << ZRBVH::Version::getRevision() << std::endl;
         return EXIT_SUCCESS;
+    }
+
+    if ( vm.count( "input" ) )
+    {
+        const auto path = vm["input"].as<fs::path>();
+        std::vector<zrenderer::MeshPtr> meshes = zrenderer::importMesh( path );
+        std::cout << meshes.size() << " meshes imported." << std::endl;
+        for (uint32_t i = 0; i < meshes.size(); ++i)
+            std::cout << "Mesh " << i << " Vertices: " << meshes[i]->getVertices().size()
+            << " Faces: " << meshes[i]->getFaces().size() << std::endl;
     }
 
     return EXIT_SUCCESS;

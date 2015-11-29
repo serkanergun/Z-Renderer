@@ -5,7 +5,7 @@
 namespace zrenderer
 {
 
-struct Primitive
+struct RBVHTriangle
 {
     AlignedBox3f bound;
     Vector3f normal;
