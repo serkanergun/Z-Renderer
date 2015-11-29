@@ -19,7 +19,7 @@ struct Node::Impl
 
     ConstNodePtr getParent() const
     {
-        _sceneGraph.getParent( *this );
+        return _sceneGraph.getParent( *this );
     }
 
     void addChild( NodePtr node )

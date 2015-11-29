@@ -69,6 +69,7 @@ struct SceneGraph::Impl
 
         _nodeMap[ name ] =
                 boost::add_vertex( node, _graph );
+        return node;
     }
 
     NodePtr findNode( const std::string& name ) const
@@ -91,6 +92,7 @@ struct SceneGraph::Impl
                 boost::add_vertex( node, _graph );
         boost::remove_vertex( _nodeMap[ name ] );
         _nodeMap.erase( name );
+        return true;
     }
 
     bool addChild( const std::string& parent,
@@ -104,6 +106,7 @@ struct SceneGraph::Impl
 
         boost::add_edge( _nodeMap[ parent ],
                          _nodeMap[ child ] );
+        return true;
     }
 
     NodePtr _rootNode;
@@ -124,20 +127,25 @@ NodePtr getRoot()
 
 NodePtr SceneGraph::createNode( const std::string& name,
                                 NodeDataPtr nodeData )
-{}
+{
+    return _impl->createNode( name, nodeData );
+}
 
 NodePtr SceneGraph::findNode( const std::string& name ) const
-{}
+{
+    return _impl->findNode( name );
+}
 
-bool SceneGraph::removeNode( const NodePtr& node )
-{}
-
-bool SceneGraph::removeNode( const std::string& nodeName )
-{}
+bool SceneGraph::removeNode( const std::string& name )
+{
+    return _impl->removeNode( name );
+}
 
 bool SceneGraph::addChild( const std::string& parent,
                            const std::string& child )
-{}
+{
+    return _impl->addChild( parent, child );
+}
 
 }
 
