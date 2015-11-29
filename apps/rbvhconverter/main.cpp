@@ -76,9 +76,10 @@ int main( int argc, char *argv[] )
         const auto path = vm["input"].as<fs::path>();
         std::vector<zrenderer::MeshPtr> meshes = zrenderer::importMesh( path );
         std::cout << meshes.size() << " meshes imported." << std::endl;
-        for (uint32_t i = 0; i < meshes.size(); ++i)
-            std::cout << "Mesh " << i << " Vertices: " << meshes[i]->getVertices().size()
-            << " Faces: " << meshes[i]->getFaces().size() << std::endl;
+        uint32_t i = 0;
+        for ( const zrenderer::MeshPtr& mesh : meshes )
+            std::cout << "Mesh " << i++ << " Vertices: " << mesh->getVertices().size()
+            << " Faces: " << mesh->getFaces().size() << std::endl;
     }
 
     return EXIT_SUCCESS;

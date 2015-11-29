@@ -45,13 +45,12 @@ BOOST_AUTO_TEST_CASE(Mesh_addVertex)
 BOOST_AUTO_TEST_CASE(Mesh_addFaceInvalid)
 {
     Mesh mesh;
-    Vector3f pos( 1, 2, 3 );
-    Vector3f nrm( 4, 5, 6 );
-    nrm.normalize();
+    const Vector3f pos( 1, 2, 3 );
+    const Vector3f nrm = Vector3f( 4, 5, 6 ).normalized();
 
     mesh.addVertex( pos, nrm );
 
-    Vector3ui face( 0, 1, 2 );
+    const Vector3ui face( 0, 1, 2 );
     BOOST_CHECK_EQUAL( mesh.addFace( face ), false );
     BOOST_CHECK_EQUAL( mesh.getFaces().size(), 0 );
 }
@@ -59,13 +58,12 @@ BOOST_AUTO_TEST_CASE(Mesh_addFaceInvalid)
 BOOST_AUTO_TEST_CASE(Mesh_addFaceValid)
 {
     Mesh mesh;
-    Vector3f pos( 1, 2, 3 );
-    Vector3f nrm( 4, 5, 6 );
-    nrm.normalize();
+    const Vector3f pos(1, 2, 3);
+    const Vector3f nrm = Vector3f(4, 5, 6).normalized();
 
     mesh.addVertex( pos, nrm );
 
-    Vector3ui face( 0, 0, 0 );
+    const Vector3ui face( 0, 0, 0 );
     BOOST_CHECK_EQUAL( mesh.addFace(face), true );
     BOOST_CHECK_EQUAL( mesh.getFaces().size(), 1 );
     BOOST_CHECK_EQUAL( mesh.getFaces()[0], face );
@@ -73,7 +71,7 @@ BOOST_AUTO_TEST_CASE(Mesh_addFaceValid)
 
 BOOST_AUTO_TEST_CASE(Mesh_importFile)
 {
-    std::vector<MeshPtr> meshes = importMesh("tests/data/teapot.mesh");
+    MeshPtrs meshes = importMesh("tests/data/teapot.mesh");
 
     BOOST_CHECK_EQUAL(meshes.size(), 1);
     BOOST_CHECK_EQUAL(meshes[0]->getVertices().size(), 3644);
@@ -83,7 +81,7 @@ BOOST_AUTO_TEST_CASE(Mesh_importFile)
 
 BOOST_AUTO_TEST_CASE(Mesh_importFileNotExists)
 {
-    std::vector<MeshPtr> meshes = importMesh("tests/data/taepo.mesh");
+    MeshPtrs meshes = importMesh("tests/data/taepo.mesh");
 
     BOOST_CHECK_EQUAL(meshes.size(), 0);
 }

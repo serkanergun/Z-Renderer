@@ -27,48 +27,48 @@
 namespace zrenderer
 {
 
-std::vector<MeshPtr> importMesh( const boost::filesystem::path& inputfile )
+MeshPtrs importMesh( const boost::filesystem::path& inputfile )
 {
-    aiLogStream stream = aiGetPredefinedLogStream(aiDefaultLogStream_STDOUT, NULL);
-    const aiScene* scene = aiImportFile(inputfile.generic_string().c_str(), 
-        aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_PreTransformVertices);
+    aiLogStream stream = aiGetPredefinedLogStream( aiDefaultLogStream_STDOUT, nullptr );
+    const aiScene* scene = aiImportFile( inputfile.generic_string().c_str(), 
+        aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_PreTransformVertices );
 
-    std::vector<MeshPtr> meshes;
+    MeshPtrs meshes;
 
-    if ( scene == NULL )
+    if( scene == nullptr )
         return meshes;
 
     // traverse all meshes assigned to root node
-    for (uint32_t n = 0; n < scene->mRootNode->mNumMeshes; ++n) 
+    for( uint32_t n = 0; n < scene->mRootNode->mNumMeshes; ++n ) 
     {
         const struct aiMesh* mesh = scene->mMeshes[scene->mRootNode->mMeshes[n]];
 
-        MeshPtr outMesh(new Mesh());
-        outMesh->reserve(mesh->mNumVertices, mesh->mNumFaces);
+        MeshPtr outMesh( new Mesh() );
+        outMesh->reserve( mesh->mNumVertices, mesh->mNumFaces );
 
-        for (uint32_t i = 0; i < mesh->mNumVertices; ++i)
+        for( uint32_t i = 0; i < mesh->mNumVertices; ++i )
         {
-            Vector3f vertex(&mesh->mVertices[i].x);
-            Vector3f normal(&mesh->mNormals[i].x);
-            outMesh->addVertex(vertex, normal);
+            Vector3f vertex( &mesh->mVertices[i].x );
+            Vector3f normal( &mesh->mNormals[i].x );
+            outMesh->addVertex( vertex, normal );
         }
 
-        for (uint32_t i = 0; i < mesh->mNumFaces; ++i)
+        for( uint32_t i = 0; i < mesh->mNumFaces; ++i )
         {
             const struct aiFace* face = &mesh->mFaces[i];
 
-            if (face->mNumIndices != 3)
+            if( face->mNumIndices != 3 )
                 continue;
 
-            Vector3ui indices(face->mIndices[0], face->mIndices[1], face->mIndices[2]);
-            outMesh->addFace(indices);
+            Vector3ui indices( face->mIndices[0], face->mIndices[1], face->mIndices[2] );
+            outMesh->addFace( indices );
         }
 
         if ( outMesh->getFaces().size() > 0 )
             meshes.push_back( outMesh );
     }
 
-    aiReleaseImport(scene);
+    aiReleaseImport( scene );
     return meshes;
 }
 
@@ -80,12 +80,12 @@ struct Mesh::Impl
 };
 
 Mesh::Mesh()
-    : _impl(new Mesh::Impl())
+    : _impl( new Mesh::Impl() )
 {}
 
 Mesh::~Mesh() {}
 
-void Mesh::reserve(uint32_t numVertices, uint32_t numFaces)
+void Mesh::reserve( uint32_t numVertices, uint32_t numFaces )
 {
     _impl->_vertices.reserve( numVertices );
     _impl->_normals.reserve( numVertices );

@@ -7,11 +7,11 @@
 namespace zrenderer
 {
 
-ZCOMMON_API std::vector<MeshPtr> importMesh(const boost::filesystem::path& inputfile);
+ZCOMMON_API MeshPtrs importMesh(const boost::filesystem::path& inputfile);
 
 /**
  * This class holds the vertex and
- * normal data for a triangle mesh
+ * normal data for an indexed triangle mesh
  */
 class Mesh
 {

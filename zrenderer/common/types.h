@@ -60,6 +60,9 @@ class Mesh;
 typedef std::shared_ptr<Mesh> MeshPtr;
 typedef std::shared_ptr<const Mesh> ConstMeshPtr;
 
+
+typedef std::vector<MeshPtr> MeshPtrs;
+
 /**
  * Locking object definitions
  */
