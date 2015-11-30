@@ -1,5 +1,6 @@
 /* Copyright (c) 2015, Zombie Rendering
  *                     ahmetbilgili@gmail.com
+ *                     serkan.ergun@gmail.com
  *
  * This file is part of Z-Renderer <https://github.com/ZombieRendering/Z-Renderer>
  *
@@ -23,6 +24,7 @@
 #include <zrenderer/common/types.h>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
+
 namespace zrenderer
 {
 

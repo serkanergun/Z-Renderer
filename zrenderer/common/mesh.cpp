@@ -1,21 +1,21 @@
 /* Copyright (c) 2015, Zombie Rendering
-*                     serkan.ergun@gmail.com
-*
-* This file is part of Z-Renderer <https://github.com/ZombieRendering/Z-Renderer>
-*
-* This library is free software; you can redistribute it and/or modify it under
-* the terms of the GNU Lesser General Public License version 3.0 as published
-* by the Free Software Foundation.
-*
-* This library is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
-* details.
-*
-* You should have received a copy of the GNU Lesser General Public License
-* along with this library; if not, write to the Free Software Foundation, Inc.,
-* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
+ *                     serkan.ergun@gmail.com
+ *
+ * This file is part of Z-Renderer <https://github.com/ZombieRendering/Z-Renderer>
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License version 3.0 as published
+ * by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
 
 #include <zrenderer/common/mathtypes.h>
 #include <zrenderer/common/mesh.h>
@@ -29,9 +29,11 @@ namespace zrenderer
 
 MeshPtrs importMesh( const boost::filesystem::path& inputfile )
 {
-    aiLogStream stream = aiGetPredefinedLogStream( aiDefaultLogStream_STDOUT, nullptr );
-    const aiScene* scene = aiImportFile( inputfile.generic_string().c_str(), 
-        aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_PreTransformVertices );
+    aiLogStream stream = aiGetPredefinedLogStream( aiDefaultLogStream_STDOUT,
+        nullptr );
+    const aiScene* scene = aiImportFile( inputfile.generic_string().c_str(),
+        aiProcessPreset_TargetRealtime_MaxQuality |
+        aiProcess_PreTransformVertices );
 
     MeshPtrs meshes;
 
@@ -39,32 +41,34 @@ MeshPtrs importMesh( const boost::filesystem::path& inputfile )
         return meshes;
 
     // traverse all meshes assigned to root node
-    for( uint32_t n = 0; n < scene->mRootNode->mNumMeshes; ++n ) 
+    for( uint32_t n = 0; n < scene->mRootNode->mNumMeshes; ++n )
     {
-        const struct aiMesh* mesh = scene->mMeshes[scene->mRootNode->mMeshes[n]];
+        const struct aiMesh* mesh =
+            scene->mMeshes[ scene->mRootNode->mMeshes[ n ] ];
 
         MeshPtr outMesh( new Mesh() );
         outMesh->reserve( mesh->mNumVertices, mesh->mNumFaces );
 
         for( uint32_t i = 0; i < mesh->mNumVertices; ++i )
         {
-            Vector3f vertex( &mesh->mVertices[i].x );
-            Vector3f normal( &mesh->mNormals[i].x );
+            Vector3f vertex( &mesh->mVertices[ i ].x );
+            Vector3f normal( &mesh->mNormals[ i ].x );
             outMesh->addVertex( vertex, normal );
         }
 
         for( uint32_t i = 0; i < mesh->mNumFaces; ++i )
         {
-            const struct aiFace* face = &mesh->mFaces[i];
+            const struct aiFace* face = &mesh->mFaces[ i ];
 
             if( face->mNumIndices != 3 )
                 continue;
 
-            Vector3ui indices( face->mIndices[0], face->mIndices[1], face->mIndices[2] );
+            Vector3ui indices( face->mIndices[ 0 ], face->mIndices[ 1 ],
+                face->mIndices[ 2 ] );
             outMesh->addFace( indices );
         }
 
-        if ( outMesh->getFaces().size() > 0 )
+        if( outMesh->getFaces().size() > 0 )
             meshes.push_back( outMesh );
     }
 
@@ -116,7 +120,7 @@ void Mesh::addVertex( const Vector3f& vertex, const Vector3f& normal )
 bool Mesh::addFace( const Vector3ui& face )
 {
     uint32_t n = (uint32_t)_impl->_vertices.size();
-    if( face[0] >= n || face[1] >= n || face[2] >= n )
+    if( face[ 0 ] >= n || face[ 1 ] >= n || face[ 2 ] >= n )
         return false;
 
     _impl->_faces.push_back( face );
