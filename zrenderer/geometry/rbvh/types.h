@@ -28,6 +28,8 @@ namespace zrenderer
 
     typedef std::shared_ptr<RBVHNode> RBVHNodePtr;
 
+    typedef std::shared_ptr<const RBVHNode> ConstRBVHNodePtr;
+
     typedef std::vector<RBVHNodePtr> RBVHNodePtrs;
 }
 

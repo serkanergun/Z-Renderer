@@ -38,7 +38,8 @@ public:
         NT_INTERNAL
     };
 
-    ZRBVH_API RBVHNode( ConstMeshPtr mesh );
+    ZRBVH_API RBVHNode( ConstMeshPtr mesh, float rho, float alpha, 
+        float upperLimit );
 
     ZRBVH_API RBVHNode();
 
@@ -46,9 +47,9 @@ public:
 
     ZRBVH_API bool isLeaf() const;
 
-    ZRBVH_API const RBVHNodePtr getLeftChild() const;
+    ZRBVH_API const ConstRBVHNodePtr& getLeftChild() const;
 
-    ZRBVH_API const RBVHNodePtr getRightChild() const;
+    ZRBVH_API const ConstRBVHNodePtr& getRightChild() const;
 
     ZRBVH_API NodeType getType() const;
 

@@ -61,15 +61,16 @@ int main( int argc, char *argv[] )
         return EXIT_SUCCESS;
     }
 
-    if ( vm.count( "input" ) )
+    if( vm.count( "input" ) )
     {
-        const auto path = vm["input"].as<fs::path>();
+        const auto path = vm[ "input" ].as<fs::path>();
         std::vector<zrenderer::MeshPtr> meshes = zrenderer::importMesh( path );
         std::cout << meshes.size() << " meshes imported." << std::endl;
         uint32_t i = 0;
-        for ( const zrenderer::MeshPtr& mesh : meshes )
-            std::cout << "Mesh " << i++ << " Vertices: " << mesh->getVertices().size()
-            << " Faces: " << mesh->getFaces().size() << std::endl;
+        for( const zrenderer::MeshPtr& mesh : meshes )
+            std::cout << "Mesh " << i++ << " Vertices: " 
+            << mesh->getVertices().size() << " Faces: " 
+            << mesh->getFaces().size() << std::endl;
     }
 
     return EXIT_SUCCESS;

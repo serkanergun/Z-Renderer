@@ -27,9 +27,12 @@ common_package(Boost REQUIRED COMPONENTS unit_test_framework
 common_package(FreeImage REQUIRED)
 common_package(Eigen3 REQUIRED)
 common_package(AssImp REQUIRED)
+common_package(OpenGL REQUIRED)
+common_package(GLEW REQUIRED)
+common_package(OGLplus REQUIRED)
 common_package_post()
 
-include_directories(${Eigen3_INCLUDE_DIR})
+include_directories(${Eigen3_INCLUDE_DIR} ${OGLPLUS_INCLUDE_DIR})
 
 add_subdirectory(zrenderer)
 add_subdirectory(apps)

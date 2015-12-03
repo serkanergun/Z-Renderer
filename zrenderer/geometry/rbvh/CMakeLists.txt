@@ -10,7 +10,7 @@ set(RBVH_SOURCES
   rbvhnode.cpp)
 
 set(RBVH_LINK_LIBRARIES 
-  PUBLIC ${Boost_SYSTEM_LIBRARY} FreeImage
+  PUBLIC ${Boost_SYSTEM_LIBRARY} FreeImage ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES}
   PRIVATE Common)
 
 set(RBVH_INCLUDE_NAME zrenderer/geometry/rbvh)
