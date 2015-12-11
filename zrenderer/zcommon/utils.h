@@ -17,47 +17,30 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _rbvh_rbvhnode_h_
-#define _rbvh_rbvhnode_h_
+#ifndef _common_utils_h_
+#define _common_utils_h_
 
-#include <zrenderer/geometry/rbvh/types.h>
-#include <zrenderer/geometry/rbvh/api.h>
+#include <zrenderer/geometry/zrbvh/types.h>
+#include <zrenderer/geometry/zrbvh/api.h>
+#include <zrenderer/zcommon/api.h>
 
 namespace zrenderer
 {
 
-class RBVHNode
+class Utils
 {
 public:
 
-    enum NodeType
-    {
-        NT_TRIANLGES,
-        NT_HEIGHTMAP,
-        NT_EMPTY,
-        NT_INTERNAL
-    };
+    static ZCOMMON_API Matrix4f lookAt( const Vector3f& eye, const Vector3f& center,
+        const Vector3f& up );
 
-    ZRBVH_API RBVHNode( ConstMeshPtr mesh, float rho, float alpha, 
-        float upperLimit );
+    static ZCOMMON_API Matrix4f lookAt( const Vector3f& eye, const Vector3f& center );
 
-    ZRBVH_API RBVHNode();
+    static ZCOMMON_API Matrix4f orthoProjection( float l, float r,
+        float t, float b, float n, float f);
 
-    ZRBVH_API virtual ~RBVHNode();
-
-    ZRBVH_API bool isLeaf() const;
-
-    ZRBVH_API const ConstRBVHNodePtr& getLeftChild() const;
-
-    ZRBVH_API const ConstRBVHNodePtr& getRightChild() const;
-
-    ZRBVH_API NodeType getType() const;
-
-private:
-
-    struct Impl;
-    std::unique_ptr<Impl> _impl;
+    static ZCOMMON_API AlignedBox3h halfBoundingBox( AlignedBox3f& box );
 };
 
 }
-#endif // _rbvh_rbvhnode_h_
+#endif // _common_utils_h_

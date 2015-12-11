@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <zrenderer/common/mathtypes.h>
-#include <zrenderer/common/mesh.h>
+#include <zrenderer/zcommon/mathtypes.h>
+#include <zrenderer/zcommon/mesh.h>
 #include <assimp/cimport.h>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -47,13 +47,16 @@ MeshPtrs importMesh( const boost::filesystem::path& inputfile )
             scene->mMeshes[ scene->mRootNode->mMeshes[ n ] ];
 
         MeshPtr outMesh( new Mesh() );
-        outMesh->reserve( mesh->mNumVertices, mesh->mNumFaces );
+        outMesh->reserveVertices( mesh->mNumVertices );
+        outMesh->reserveNormals( mesh->mNumVertices );
+        outMesh->reserveFaces( mesh->mNumFaces );
 
         for( uint32_t i = 0; i < mesh->mNumVertices; ++i )
         {
             Vector3f vertex( &mesh->mVertices[ i ].x );
             Vector3f normal( &mesh->mNormals[ i ].x );
-            outMesh->addVertex( vertex, normal );
+            outMesh->addVertex( vertex );
+            outMesh->addNormal( normal );
         }
 
         for( uint32_t i = 0; i < mesh->mNumFaces; ++i )
@@ -81,6 +84,7 @@ struct Mesh::Impl
     Vector3fs _vertices;
     Vector3fs _normals;
     Vector3uis _faces;
+    AlignedBox3f _bound;
 };
 
 Mesh::Mesh()
@@ -89,11 +93,19 @@ Mesh::Mesh()
 
 Mesh::~Mesh() {}
 
-void Mesh::reserve( uint32_t numVertices, uint32_t numFaces )
+void Mesh::reserveVertices( uint32_t numVertices )
 {
     _impl->_vertices.reserve( numVertices );
-    _impl->_normals.reserve( numVertices );
+}
+
+void Mesh::reserveFaces( uint32_t numFaces )
+{
     _impl->_faces.reserve( numFaces );
+}
+
+void Mesh::reserveNormals( uint32_t numNormals )
+{
+    _impl->_normals.reserve( numNormals );
 }
 
 const Vector3fs& Mesh::getVertices() const
@@ -111,9 +123,14 @@ const Vector3uis& Mesh::getFaces() const
     return _impl->_faces;
 }
 
-void Mesh::addVertex( const Vector3f& vertex, const Vector3f& normal )
+void Mesh::addVertex( const Vector3f& vertex )
 {
     _impl->_vertices.push_back( vertex );
+    _impl->_bound.extend( vertex );
+}
+
+void Mesh::addNormal( const Vector3f& normal )
+{
     _impl->_normals.push_back( normal );
 }
 
@@ -125,6 +142,11 @@ bool Mesh::addFace( const Vector3ui& face )
 
     _impl->_faces.push_back( face );
     return true;
+}
+
+const AlignedBox3f& Mesh::getBoundingBox() const
+{
+    return _impl->_bound;
 }
 
 }

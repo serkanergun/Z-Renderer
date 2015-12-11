@@ -53,6 +53,7 @@ using std::uint64_t;
 /**
  * Class definitions
  */
+class Geometry;
 class Mesh;
 
 /**

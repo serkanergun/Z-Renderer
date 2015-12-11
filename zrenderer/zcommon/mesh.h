@@ -17,11 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _mesh_h_
-#define _mesh_h_
+#ifndef _zcommon_mesh_h_
+#define _zcommon_mesh_h_
 
-#include <zrenderer/common/mathtypes.h>
-#include <zrenderer/common/api.h>
+#include <zrenderer/zcommon/mathtypes.h>
+#include <zrenderer/zcommon/geometry.h>
+#include <zrenderer/zcommon/api.h>
 
 namespace zrenderer
 {
@@ -32,7 +33,7 @@ ZCOMMON_API MeshPtrs importMesh(const boost::filesystem::path& inputfile);
  * This class holds the vertex and
  * normal data for an indexed triangle mesh
  */
-class Mesh
+class Mesh : public Geometry
 {
 
 public:
@@ -41,18 +42,34 @@ public:
     ZCOMMON_API virtual ~Mesh();
 
     /**
-    * Reserves internal memory for data
+    * Reserves internal memory for vertices
     * @param numVertices expected number of vertices
+    */
+    ZCOMMON_API void reserveVertices( uint32_t numVertices );
+
+    /**
+    * Reserves internal memory for normals
+    * @param numNormals expected number of normals
+    */
+    ZCOMMON_API void reserveNormals( uint32_t numNormals );
+
+    /**
+    * Reserves internal memory for faces
     * @param numFaces expected number of faces
     */
-    ZCOMMON_API void reserve( uint32_t numVertices, uint32_t numFaces );
+    ZCOMMON_API void reserveFaces( uint32_t numFaces );
 
     /**
     * Adds a vertex to the mesh
     * @param position position of the vertex
+    */
+    ZCOMMON_API void addVertex( const Vector3f& position );
+
+    /**
+    * Adds normal to the mesh
     * @param normal of the vertex
     */
-    ZCOMMON_API void addVertex( const Vector3f& position, const Vector3f& normal );
+    ZCOMMON_API void addNormal( const Vector3f& normal );
 
     /**
     * Adds a triangle to the mesh if the given vertex indices are 
@@ -71,11 +88,16 @@ public:
     * @return normals of the mesh
     */
     ZCOMMON_API const Vector3fs& getNormals() const;
-    
+
     /**
     * @return faces of the mesh
     */
     ZCOMMON_API const Vector3uis& getFaces() const;
+
+    /**
+    * @return bounding box of the mesh
+    */
+    ZCOMMON_API const AlignedBox3f& getBoundingBox() const override;
 
 private:
 
@@ -85,4 +107,4 @@ private:
 
 }
 
-#endif // _mesh_h_
+#endif // _zcommon_mesh_h_

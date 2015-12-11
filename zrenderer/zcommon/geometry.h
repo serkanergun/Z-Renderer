@@ -17,20 +17,28 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _rbvh_types_
-#define _rbvh_types_
+#ifndef _geometry_h_
+#define _geometry_h_
 
-#include <zrenderer/common/mathtypes.h>
+#include <zrenderer/zcommon/mathtypes.h>
+#include <zrenderer/zcommon/api.h>
 
 namespace zrenderer
 {
-    class RBVHNode;
 
-    typedef std::shared_ptr<RBVHNode> RBVHNodePtr;
+class Geometry
+{
+public:
 
-    typedef std::shared_ptr<const RBVHNode> ConstRBVHNodePtr;
+    ZCOMMON_API Geometry() {}
+    ZCOMMON_API virtual ~Geometry() {}
 
-    typedef std::vector<RBVHNodePtr> RBVHNodePtrs;
+    /**
+    * @return bounding box of the geometry
+    */
+    ZCOMMON_API virtual const AlignedBox3f& getBoundingBox() const = 0;
+};
+
 }
 
-#endif // _rbvh_types_
+#endif // _geometry_h_

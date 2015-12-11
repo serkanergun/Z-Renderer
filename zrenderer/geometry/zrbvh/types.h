@@ -1,5 +1,4 @@
 /* Copyright (c) 2015, Zombie Rendering
- *                     ahmetbilgili@gmail.com
  *                     serkan.ergun@gmail.com
  *
  * This file is part of Z-Renderer <https://github.com/ZombieRendering/Z-Renderer>
@@ -18,38 +17,18 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _mathtypes_h_
-#define _mathtypes_h_
+#ifndef _rbvh_types_
+#define _rbvh_types_
 
-#include <zrenderer/common/types.h>
-#include <Eigen/Core>
-#include <Eigen/Geometry>
+#include <zrenderer/zcommon/mathtypes.h>
 
 namespace zrenderer
 {
+    class RBVHTree;
 
-using Eigen::Vector2i;
-using Eigen::Vector3i;
-using Eigen::Vector4i;
+    typedef std::shared_ptr<RBVHTree> RBVHTreePtr;
 
-typedef Eigen::Matrix<uint32_t, 2, 1> Vector2ui;
-typedef Eigen::Matrix<uint32_t, 3, 1> Vector3ui;
-typedef Eigen::Matrix<uint32_t, 4, 1> Vector4ui;
-
-using Eigen::Vector2f;
-using Eigen::Vector3f;
-using Eigen::Vector4f;
-
-using Eigen::Vector2d;
-using Eigen::Vector3d;
-using Eigen::Vector4d;
-
-using Eigen::AlignedBox3f;
-
-typedef std::vector<Vector3f> Vector3fs;
-typedef std::vector<Vector3ui> Vector3uis;
-
+    typedef std::shared_ptr<const RBVHTree> ConstRBVHTreePtr;
 }
 
-#endif // _mathtypes_h_
-
+#endif // _rbvh_types_

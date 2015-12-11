@@ -17,14 +17,35 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <zrenderer/geometry/rbvh/rbvhnode.h>
-#include <zrenderer/geometry/rbvh/version.h>
-#include <zrenderer/common/mesh.h>
+#include <oglplus/gl.hpp>
+#include <GLFW/glfw3.h>
+
+#include <zrenderer/geometry/zrbvh/rbvhtree.h>
+#include <zrenderer/geometry/zrbvh/version.h>
+#include <zrenderer/zcommon/mesh.h>
 #include <boost/program_options.hpp>
 #include <iostream>
 
 namespace po = boost::program_options;
 namespace fs = boost::filesystem;
+using namespace zrenderer;
+
+class GLFWInitializer
+{
+public:
+    GLFWInitializer( void )
+    {
+        if( !glfwInit() )
+        {
+            throw std::runtime_error( "GLFW initialization error" );
+        }
+    }
+
+    ~GLFWInitializer( void )
+    {
+        glfwTerminate();
+    }
+};
 
 int main( int argc, char *argv[] )
 {
@@ -39,6 +60,8 @@ int main( int argc, char *argv[] )
 
     po::store( parse_command_line( argc, argv, desc ), vm );
     po::notify( vm );
+
+    MeshPtr mesh;
 
     if( vm.count( "help" ) )
     {
@@ -64,13 +87,38 @@ int main( int argc, char *argv[] )
     if( vm.count( "input" ) )
     {
         const auto path = vm[ "input" ].as<fs::path>();
-        std::vector<zrenderer::MeshPtr> meshes = zrenderer::importMesh( path );
+        MeshPtrs meshes = zrenderer::importMesh( path );
         std::cout << meshes.size() << " meshes imported." << std::endl;
         uint32_t i = 0;
         for( const zrenderer::MeshPtr& mesh : meshes )
             std::cout << "Mesh " << i++ << " Vertices: " 
             << mesh->getVertices().size() << " Faces: " 
             << mesh->getFaces().size() << std::endl;
+        mesh = meshes[ 0 ];
+    }
+
+    GLFWInitializer glfw_initializer;
+    glfwWindowHint( GLFW_VISIBLE, GL_FALSE );
+    GLFWwindow* window = glfwCreateWindow(800, 600, "", NULL, NULL );
+
+    if( !window )
+    {
+        throw std::runtime_error( "Error creating GLFW3 window" );
+    }
+    else
+    {
+        glfwMakeContextCurrent( window );
+        oglplus::GLAPIInitializer api_init;
+    }
+
+    float rho = 32*32;
+    float alpha = 0.8f;
+    float upperLimit = 512;
+
+    if( mesh )
+    {
+        RBVHTree tree( mesh, rho, alpha, upperLimit );
+        tree.save("test.rbvh");
     }
 
     return EXIT_SUCCESS;
